@@ -2,6 +2,11 @@ const axios = require("axios");
 
 const WOLFRAM_API_URL = "http://api.wolframalpha.com/v1/result";
 const WOLFRAM_APP_ID = process.env.WOLFRAM_APP_ID;
+console.log("🔍 WOLFRAM_APP_ID in wolfram.js:", WOLFRAM_APP_ID);
+
+if (!WOLFRAM_APP_ID) {
+    throw new Error("❌ Missing Wolfram API Key in .env file");
+}
 
 const getWolframResponse = async (query) => {
     try {
@@ -35,4 +40,5 @@ const analyzeBudget = async (budget, expenses) => {
     }
 };
 
-module.exports = getWolframResponse;
+// ✅ Fix: Export both functions
+module.exports = { getWolframResponse, analyzeBudget };

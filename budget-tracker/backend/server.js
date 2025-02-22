@@ -1,4 +1,5 @@
 require("dotenv").config();
+console.log("WOLFRAM_APP_ID:", process.env.WOLFRAM_APP_ID); // Debugging line
 const express = require("express");
 const path = require("path");
 const wolframRoutes = require("./routes/wolframRoutes");
