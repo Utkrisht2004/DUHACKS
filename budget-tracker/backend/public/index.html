@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Analysis</title>
+</head>
+<body>
+    <h2>Budget Analysis</h2>
+    <form id="budgetForm">
+        <label>Budget: <input type="number" id="budget" required></label><br><br>
+        <label>Expenses (comma separated): <input type="text" id="expenses" required></label><br><br>
+        <button type="submit">Analyze Budget</button>
+    </form>
+    <h3>Result:</h3>
+    <pre id="result"></pre>
+
+    <script>
+        document.getElementById("budgetForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const budget = document.getElementById("budget").value;
+            const expenses = document.getElementById("expenses").value;
+
+            const response = await fetch(`http://localhost:5000/api/wolfram/budget-analysis?budget=${budget}&expenses=${expenses}`);
+            const data = await response.json();
+            document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+        });
+    </script>
+</body>
+</html>

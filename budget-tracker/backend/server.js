@@ -1,18 +1,18 @@
 require("dotenv").config();
 const express = require("express");
-const connectDB = require("./config/db");
+const path = require("path");
 const wolframRoutes = require("./routes/wolframRoutes");
 
 const app = express();
 app.use(express.json());
 
-// Connect to MongoDB
-connectDB();
+// Serve Static Files (Move this BELOW app initialization)
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/wolfram", wolframRoutes);
 
 app.get("/", (req, res) => {
-    res.send({ message: "Budget Tracker API is running" });
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;

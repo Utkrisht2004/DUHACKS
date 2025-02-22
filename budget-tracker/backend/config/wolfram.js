@@ -19,4 +19,20 @@ const getWolframResponse = async (query) => {
     }
 };
 
+const analyzeBudget = async (budget, expenses) => {
+    const totalExpenses = expenses.reduce((sum, expense) => sum + expense, 0);
+    const query = `Is total spending of ${totalExpenses} within a budget of ${budget}?`;
+
+    try {
+        const response = await axios.get(WOLFRAM_API_URL, {
+            params: { i: query, appid: WOLFRAM_APP_ID },
+        });
+
+        return response.data; // Wolfram returns a text response
+    } catch (error) {
+        console.error("❌ Wolfram API Error:", error.message);
+        return "Error analyzing budget.";
+    }
+};
+
 module.exports = getWolframResponse;
